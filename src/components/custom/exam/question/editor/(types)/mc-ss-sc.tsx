@@ -9,7 +9,10 @@ import { Button } from "@/components/ui/button";
 import { GripVertical, Plus, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { questionTypes } from "@/constants/question-types";
-import { mcssscCreateSchema } from "@/schema/questions/mc-ss-sc";
+import {
+  mcssscCreateSchema,
+  TMCSSSCCreateSchema,
+} from "@/schema/questions/mc-ss-sc";
 
 type MCSSSSSchema = typeof mcssscCreateSchema;
 export default function MCSSSCEditor({ id }: { id: string }) {
@@ -19,8 +22,8 @@ export default function MCSSSCEditor({ id }: { id: string }) {
 
   return (
     <div className="space-y-6 @container">
-      <EditorField<MCSSSSSchema>
-        setter={setter}
+      <EditorField<TMCSSSCCreateSchema>
+        setter={(id, path, value) => {}}
         name="body.instruction"
         render={({ field }) => (
           <EditorItem>
@@ -29,7 +32,7 @@ export default function MCSSSCEditor({ id }: { id: string }) {
           </EditorItem>
         )}
       />
-      <EditorField<MCSSSSSchema>
+      <EditorField<TMCSSSCCreateSchema>
         setter={setter}
         name="body.description"
         render={({ field }) => (
@@ -41,7 +44,7 @@ export default function MCSSSCEditor({ id }: { id: string }) {
       />
 
       <div className="grid @2xl:grid-cols-3 gap-3">
-        <EditorField<MCSSSSSchema>
+        <EditorField<TMCSSSCCreateSchema>
           setter={setter}
           name="body.metadata.marks.correct"
           render={({ field }) => (
@@ -56,7 +59,7 @@ export default function MCSSSCEditor({ id }: { id: string }) {
             </EditorItem>
           )}
         />
-        <EditorField<MCSSSSSchema>
+        <EditorField<TMCSSSCCreateSchema>
           setter={setter}
           name="body.metadata.marks.incorrect"
           render={({ field }) => (
@@ -71,7 +74,7 @@ export default function MCSSSCEditor({ id }: { id: string }) {
             </EditorItem>
           )}
         />
-        <EditorField<MCSSSSSchema>
+        <EditorField<TMCSSSCCreateSchema>
           setter={setter}
           name="body.metadata.marks.correct"
           render={({ field }) => (
@@ -86,18 +89,21 @@ export default function MCSSSCEditor({ id }: { id: string }) {
             </EditorItem>
           )}
         />
-        <EditorField<MCSSSSSchema>
+        <EditorField<TMCSSSCCreateSchema>
           setter={setter}
-          name="body.metadata.tags"
-          render={({ field }) => (
-            <EditorItem>
-              <EditorLabel>Tags (Comma Separated)</EditorLabel>
-              <Input placeholder="Cubic Root, Trigonometry" />
-            </EditorItem>
-          )}
+          name="body.metadata"
+          render={({ field }) => {
+            field.value;
+            return (
+              <EditorItem>
+                <EditorLabel>Tags (Comma Separated)</EditorLabel>
+                <Input placeholder="Cubic Root, Trigonometry" />
+              </EditorItem>
+            );
+          }}
         />
       </div>
-      <EditorField<MCSSSSSchema>
+      <EditorField<TMCSSSCCreateSchema>
         setter={setter}
         name="body.metadata.shuffle"
         render={({ field }) => (
@@ -110,9 +116,9 @@ export default function MCSSSCEditor({ id }: { id: string }) {
 
       <div className="flex flex-col gap-2">
         <h1 className="text-lg font-medium">Options</h1>
-        <EditorField<MCSSSSSchema>
+        <EditorField<TMCSSSCCreateSchema>
           setter={setter}
-          name={`body.metadata.${0}.text`}
+          name={`body.options.0.text`}
           render={({ field }) => (
             <EditorItem className="space-y-0">
               <section className="flex justify-start items-center gap-3">

@@ -5,6 +5,7 @@ import MCSS from "@/components/custom/exam/question/preview/mc-ss";
 import { mcssscCreateSchema } from "@/schema/questions/mc-ss-sc";
 import { ExtractZodType } from "@/types/extract-zod-type";
 import React from "react";
+import { FieldPath, FieldValues } from "react-hook-form";
 
 export type QuestionTypes =
   | "mc_ss_sc"
@@ -21,7 +22,7 @@ type TQuestionEntity = {
   label: string;
   shortLabel?: string;
   editor: {
-    handlers: Record<string, any>;
+    handlers: () => Record<string, any>;
     Render: React.FC<{ id: string }>;
   };
   preview: {
@@ -39,13 +40,9 @@ export const questionTypes = [
       Render({ id }) {
         return <MCSSSCEditor id={id} />;
       },
-      handlers() {
+      handlers<T extends FieldValues>() {
         return {
-          setter(
-            id: string,
-            path: ExtractZodType<typeof mcssscCreateSchema>,
-            value: any
-          ) {},
+          setter(id: string, path: FieldPath<T>, value: any) {},
         };
       },
     },
@@ -64,7 +61,11 @@ export const questionTypes = [
       Render({ id }) {
         return <MCSSMCEditor id={id} />;
       },
-      handlers: {},
+      handlers<T extends FieldValues>() {
+        return {
+          setter(id: string, path: FieldPath<T>, value: any) {},
+        };
+      },
     },
     preview: {
       Render({ id }) {
@@ -81,7 +82,9 @@ export const questionTypes = [
       Render({ id }) {
         return <div></div>;
       },
-      handlers: {},
+      handlers<T extends FieldValues>() {
+        return {};
+      },
     },
     preview: {
       Render({ id }) {
