@@ -3,8 +3,8 @@
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import QuestionPreviewHeader from "./question-preview-header";
-import Tag from "@/components/custom/score";
+import QuestionPreviewHeader from "../question-preview-header";
+import Tag from "@/components/custom/tag";
 
 export default function MCMS() {
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
@@ -24,7 +24,7 @@ export default function MCMS() {
         <Tag>-0.25</Tag>
       </QuestionPreviewHeader>
       <section className="space-y-3 @container">
-        <h2 className="text-sm">The cube root of 3375 is equal to</h2>
+        <h2 className="text-sm">The cube root of 33753 is equal to</h2>
 
         <div className="grid @lg:grid-cols-2 gap-3">
           {Array.from({ length: 4 }).map((_, index) => (

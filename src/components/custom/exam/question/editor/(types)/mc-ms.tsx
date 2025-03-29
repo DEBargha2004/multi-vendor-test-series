@@ -1,21 +1,27 @@
 "use client";
 
-import React from "react";
+import { useQuestionEditor } from "@/hooks/use-question-editor";
+import { TMCMSCreateSchema } from "@/schema/questions/mc-ms";
 import { EditorField, EditorItem, EditorLabel } from "../field";
 import RichTextEditor from "@/components/custom/rich-test-editor";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { checkingStrategies } from "@/constants/test.utils";
 import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
 import { GripVertical, Plus, Trash2 } from "lucide-react";
-import { TMCSSSCCreateSchema } from "@/schema/questions/mc-ss-sc";
-import { useQuestionEditor } from "@/hooks/use-question-editor";
+import { Button } from "@/components/ui/button";
 
-export default function MCSSSCEditor({ id }: { id: string }) {
-  const control = useQuestionEditor<TMCSSSCCreateSchema>(id);
-  const res = control.get("body.metadata.shuffle");
+export default function MCMSEditor({ id }: { id: string }) {
+  const control = useQuestionEditor<TMCMSCreateSchema>(id);
 
   return (
-    <div className="space-y-6 @container">
+    <div className="space-y-6">
       <EditorField
         control={control}
         name="body.instruction"
@@ -36,7 +42,6 @@ export default function MCSSSCEditor({ id }: { id: string }) {
           </EditorItem>
         )}
       />
-
       <div className="grid @2xl:grid-cols-3 gap-3">
         <EditorField
           control={control}
@@ -46,7 +51,6 @@ export default function MCSSSCEditor({ id }: { id: string }) {
               <EditorLabel>Positive Marks</EditorLabel>
               <Input
                 type="number"
-                placeholder="Positive Marks"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               />
@@ -61,10 +65,30 @@ export default function MCSSSCEditor({ id }: { id: string }) {
               <EditorLabel>Negative Marks</EditorLabel>
               <Input
                 type="number"
-                placeholder="Negative Marks"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               />
+            </EditorItem>
+          )}
+        />
+        <EditorField
+          control={control}
+          name="body.metadata.strategy"
+          render={({ field }) => (
+            <EditorItem>
+              <EditorLabel>Checking Strategy</EditorLabel>
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {checkingStrategies.map((s) => (
+                    <SelectItem key={s.value} value={s.value}>
+                      {s.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </EditorItem>
           )}
         />
@@ -75,9 +99,10 @@ export default function MCSSSCEditor({ id }: { id: string }) {
             <EditorItem>
               <EditorLabel>Tags (Comma Separated)</EditorLabel>
               <Input
-                placeholder="Cubic Root, Trigonometry"
+                type="number"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
+                placeholder="Cubic, Trigonometry"
               />
             </EditorItem>
           )}
@@ -93,7 +118,6 @@ export default function MCSSSCEditor({ id }: { id: string }) {
           </EditorItem>
         )}
       />
-
       <div className="flex flex-col gap-2">
         <h1 className="text-lg font-medium">Options</h1>
         <EditorField
@@ -118,7 +142,7 @@ export default function MCSSSCEditor({ id }: { id: string }) {
               </section>
               <section className="flex justify-start items-center gap-3">
                 <Input
-                  type="radio"
+                  type="checkbox"
                   className="size-5 accent-amber-400"
                   readOnly
                 />

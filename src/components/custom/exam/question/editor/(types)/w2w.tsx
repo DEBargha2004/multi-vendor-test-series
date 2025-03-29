@@ -1,21 +1,16 @@
 "use client";
 
-import React from "react";
+import { useQuestionEditor } from "@/hooks/use-question-editor";
+import { TW2WCreateSchema } from "@/schema/questions/w2w";
 import { EditorField, EditorItem, EditorLabel } from "../field";
 import RichTextEditor from "@/components/custom/rich-test-editor";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { GripVertical, Plus, Trash2 } from "lucide-react";
-import { TMCSSSCCreateSchema } from "@/schema/questions/mc-ss-sc";
-import { useQuestionEditor } from "@/hooks/use-question-editor";
 
-export default function MCSSSCEditor({ id }: { id: string }) {
-  const control = useQuestionEditor<TMCSSSCCreateSchema>(id);
-  const res = control.get("body.metadata.shuffle");
+export default function W2WEditor({ id }: { id: string }) {
+  const control = useQuestionEditor<TW2WCreateSchema>(id);
 
   return (
-    <div className="space-y-6 @container">
+    <div className="space-y-6">
       <EditorField
         control={control}
         name="body.instruction"
@@ -36,7 +31,6 @@ export default function MCSSSCEditor({ id }: { id: string }) {
           </EditorItem>
         )}
       />
-
       <div className="grid @2xl:grid-cols-3 gap-3">
         <EditorField
           control={control}
@@ -46,7 +40,6 @@ export default function MCSSSCEditor({ id }: { id: string }) {
               <EditorLabel>Positive Marks</EditorLabel>
               <Input
                 type="number"
-                placeholder="Positive Marks"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               />
@@ -61,7 +54,6 @@ export default function MCSSSCEditor({ id }: { id: string }) {
               <EditorLabel>Negative Marks</EditorLabel>
               <Input
                 type="number"
-                placeholder="Negative Marks"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               />
@@ -75,7 +67,7 @@ export default function MCSSSCEditor({ id }: { id: string }) {
             <EditorItem>
               <EditorLabel>Tags (Comma Separated)</EditorLabel>
               <Input
-                placeholder="Cubic Root, Trigonometry"
+                placeholder="Cubic, Trigonometry"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               />
@@ -85,54 +77,17 @@ export default function MCSSSCEditor({ id }: { id: string }) {
       </div>
       <EditorField
         control={control}
-        name="body.metadata.shuffle"
+        name="results.answer"
         render={({ field }) => (
-          <EditorItem className="flex items-center gap-3 space-y-0">
-            <EditorLabel>Shuffle Options</EditorLabel>
-            <Switch checked={field.value} onCheckedChange={field.onChange} />
+          <EditorItem>
+            <EditorLabel>Answer</EditorLabel>
+            <Input
+              value={field.value}
+              onChange={(e) => field.onChange(e.target.value)}
+            />
           </EditorItem>
         )}
       />
-
-      <div className="flex flex-col gap-2">
-        <h1 className="text-lg font-medium">Options</h1>
-        <EditorField
-          control={control}
-          name={`body.options.0.text`}
-          render={({ field }) => (
-            <EditorItem className="space-y-3">
-              <section className="flex justify-start items-center gap-3">
-                <GripVertical size={18} className="cursor-grab" />
-
-                <EditorLabel className="text-muted-foreground">
-                  Option {0 + 1}
-                </EditorLabel>
-                <Button
-                  type="button"
-                  size={"icon"}
-                  variant={"destructive"}
-                  className="size-8 ml-auto"
-                >
-                  <Trash2 />
-                </Button>
-              </section>
-              <section className="flex justify-start items-center gap-3">
-                <Input
-                  type="radio"
-                  className="size-5 accent-amber-400"
-                  readOnly
-                />
-                <RichTextEditor value={field.value} onChange={field.onChange} />
-              </section>
-            </EditorItem>
-          )}
-        />
-
-        <Button type="button" className="ml-auto">
-          <Plus />
-          <span>Add Option</span>
-        </Button>
-      </div>
     </div>
   );
 }

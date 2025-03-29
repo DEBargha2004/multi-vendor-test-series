@@ -118,6 +118,11 @@ export const visibilityOptions = [
   },
 ];
 
+export const checkingStrategies = [
+  { value: "strict", label: "Strict" },
+  { value: "partial", label: "Partial" },
+];
+
 export const getLanguage = (lang: string) => {
   return languages.find((l) => l.value === lang);
 };
@@ -132,4 +137,8 @@ export const getCategory = (cat: string) => {
 
 export const getVisibility = (vis: string) => {
   return visibilityOptions.find((v) => v.value === vis);
+};
+
+export const getCheckingStrategy = (val: string) => {
+  return checkingStrategies.find((cs) => cs.value === val);
 };

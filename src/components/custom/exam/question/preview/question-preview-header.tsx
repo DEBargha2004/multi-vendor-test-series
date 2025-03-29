@@ -1,4 +1,4 @@
-import Tag from "@/components/custom/score";
+import Tag from "@/components/custom/tag";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -17,6 +17,7 @@ export default function QuestionPreviewHeader({
       )}
     >
       <h1 className="font-semibold mr-3">Q{qno}</h1>
+      {children}
       {/* <Select>
   <SelectTrigger className="w-26 ml-auto" hideIcon>
     <SelectValue placeholder="English" />

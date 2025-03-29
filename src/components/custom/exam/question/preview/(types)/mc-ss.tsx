@@ -1,15 +1,15 @@
 "use client";
 
-import Tag from "@/components/custom/score";
+import Tag from "@/components/custom/tag";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import QuestionPreviewHeader from "./question-preview-header";
+import QuestionPreviewHeader from "../question-preview-header";
 
 export default function MCSS() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   return (
-    <div className="space-y-3">
+    <div className="space-y-5">
       <QuestionPreviewHeader qno={1}>
         <Tag>+1</Tag>
         <Tag>-0.25</Tag>
